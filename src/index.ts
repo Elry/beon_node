@@ -1,18 +1,17 @@
+import express, { Express, Request, Response } from 'express';
 
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 3000;
+const app: Express = express();
+const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('AI Server is ready!');
+app.get('/', (req: Request, res: Response) => {
+  res.send('Server running');
 });
 
+app.post('/api/challenge', (req: Request, res: Response) => {
+  console.log('post-body', req.body);
 
-app.post('/api/challenge', (req, res) => {
-  console.log('Received data:', req.body);
-  
   if (!req.body || Object.keys(req.body).length === 0) {
     return res.status(400).json({ error: 'No data provided in the request body.' });
   }
